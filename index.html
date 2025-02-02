@@ -7,15 +7,15 @@
     <title>Document</title>
     <script src="./resources/js/index.js" defer></script>
   </head>
-  <body class="">
+  <body class="page">
     <!-- header -->
     <header class="header">
       <div class="container">
         <!--  main title -->
         <h1 class="header__title">
-          <span>Etch</span>
-          <span>A</span>
-          <span>Sketch</span>
+          <span class="header__title-part">Etch</span>
+          <span class="header__title-part">A</span>
+          <span class="header__title-part">Sketch</span>
         </h1>
         <!-- end of main title -->
       </div>
@@ -24,7 +24,66 @@
     <!-- end of header -->
 
     <!-- start of main content -->
-    <main class=""></main>
+    <main class="main">
+      <section class="sketchbook">
+        <div class="container">
+          <div class="controls">
+            <div class="controls__color-picker" title="color picker">
+              <p class="color-picker__label">Pick a Color!</p>
+
+              <div class="color-picker__input-container">
+                <input class="color-picker__input" type="color" name="" id="" />
+              </div>
+            </div>
+            <div class="controls__grid-size">
+              <p class="grid-size__label">16 X 16 Grid</p>
+              <div class="grid-size__input-container">
+                <input
+                  type="range"
+                  class="grid-size__input"
+                  min="16"
+                  max="100"
+                  value="16"
+                />
+              </div>
+            </div>
+            <div class="controls__eraser">
+              <button type="button" class="eraser__button">Eraser</button>
+            </div>
+            <div class="controls__rainbow">
+              <button class="rainbow__button" type="button">Rainbow</button>
+            </div>
+            <div class="controls__brush">
+              <button class="brush__button" type="button">Brush</button>
+            </div>
+            <div class="controls__reset">
+              <button class="reset__button" type="button">Reset</button>
+            </div>
+          </div>
+
+          <div class="sketch-grid">
+            <div class="sketch-grid__container">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
     <!-- end of main -->
 
     <!-- footer -->

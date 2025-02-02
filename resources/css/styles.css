@@ -27,8 +27,9 @@
   --FF-ROBOTO: "Roboto", serif;
 
   /* colors */
-  --PRIMARY-COLOR: oklch(0.93 0.12 92.91);
-  --ACCENT-COLOR: oklch(58.69% 0.141 271.37);
+  /* --PRIMARY-COLOR: oklch(0.93 0.12 92.91); */
+  --PRIMARY-COLOR: #000;
+  /* --ACCENT-COLOR: oklch(58.69% 0.141 271.37); */
   --PRIMARY-WHITE: #fff;
 }
 
@@ -108,7 +109,8 @@ main {
   padding-block-start: 1rem;
   font-family: var(--FF-DANCING-SCRIPT);
   font-size: 8.6rem;
-  text-shadow: 6px 6px 3px rgba(0, 0, 0, 0.311);
+  color: #fff;
+  text-shadow: 6px 6px 3px rgba(255, 255, 255, 0.311);
   text-align: center;
 }
 .header__title span:first-of-type {
@@ -117,6 +119,165 @@ main {
 }
 .header .container {
   position: relative;
+}
+/*
+------------------------------------------
+|   SKETCH BOOK                          |
+------------------------------------------
+*/
+.sketchbook {
+  height: 59rem;
+}
+.sketchbook .container {
+  height: 100%;
+  display: flex;
+}
+.controls {
+  background-color: var(--PRIMARY-WHITE);
+  flex-grow: 0.41;
+  /* transform: translateX(-20px); */
+  /* border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%; */
+  border-top-left-radius: 999rem;
+  border-bottom-left-radius: 999rem;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-block-start: 4rem;
+  gap: 2.3rem;
+}
+.controls::before {
+  content: "";
+  background-color: rgb(201, 201, 201);
+  width: 30%;
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 25px;
+  border-radius: 60px;
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.507);
+}
+.controls:after {
+  content: "";
+  background-color: rgb(121, 121, 121);
+  width: 25%;
+  height: 185px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 31px;
+  border-radius: 60px;
+}
+.controls__color-picker {
+  /* transform: translate(210px, 51px); */
+}
+.color-picker__label {
+  color: oklch(0.432 0.232 292.759);
+  font-size: 1.6rem;
+  transform: translateX(-20px);
+  display: inline-block;
+  margin-block-end: 1rem;
+  font-weight: 600;
+}
+.color-picker__input-container {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.507);
+}
+.color-picker__input {
+  cursor: pointer;
+  scale: 2;
+  height: 50px;
+  width: 50px;
+}
+
+.controls__grid-size {
+  transform: rotate(-90deg);
+  margin-block-start: 7.5rem;
+  /* margin-inline-end: 1rem; */
+  position: relative;
+}
+.grid-size__label {
+  color: oklch(0.432 0.232 292.759);
+  font-size: 1.6rem;
+  font-weight: 600;
+  position: absolute;
+  transform: rotate(90deg) translate(-4px, -105px);
+}
+.controls__eraser {
+  margin-block-start: 4.5rem;
+  margin-inline-end: 3rem;
+}
+
+.eraser__button,
+.reset__button,
+.rainbow__button,
+.brush__button {
+  font-size: 1.6rem;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border-radius: 11px;
+  border: none;
+  background-color: oklch(0.769 0.188 70.08);
+  color: white;
+  font-weight: 500;
+  transition: all 0.2s ease-in;
+  border: 3px solid transparent;
+}
+.eraser__button:hover,
+.reset__button:hover,
+.rainbow__button:hover,
+.brush__button:hover {
+  background-color: oklch(0.709 0.188 70.08);
+}
+
+.eraser__button.active,
+.reset__button.active,
+.rainbow__button.active,
+.brush__button.active {
+  border-color: oklch(0.709 0.188 70.08);
+  scale: 0.95;
+}
+.controls__reset {
+  margin-inline-end: 3.2rem;
+}
+.controls__rainbow {
+  margin-inline-end: 2.1rem;
+}
+.controls__brush {
+  margin-inline-end: 3.2rem;
+}
+.sketch-grid {
+  flex-grow: 2;
+  /* background-color: burlywood; */
+  display: flex;
+  flex-wrap: wrap;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  background-color: oklch(0.769 0.188 70.08);
+}
+.sketch-grid .sketch-grid__container {
+  margin: 1.5rem;
+  border: 3px dashed #fff;
+  /* height: 100%; */
+  /* width: 100%; */
+  background-color: #fff;
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  /* height: 10px; */
+}
+.sketch-grid__container div {
+  flex-grow: 1;
+  /* background-color: red; */
+  background-color: #ddd;
+  border: 2px solid #fff;
+  /* display: flex; */
 }
 /*
 ------------------------------------------
