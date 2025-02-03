@@ -78,7 +78,7 @@ a {
   width: 100%;
   max-width: 80rem;
   margin-inline: auto;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 main {
   min-height: calc(100vh - 13.9rem - 7rem - 3rem);
@@ -126,15 +126,20 @@ main {
 ------------------------------------------
 */
 .sketchbook {
-  height: 59rem;
+  min-height: 59rem;
+  display: flex;
+  flex-direction: column;
 }
 .sketchbook .container {
-  height: 100%;
+  flex-grow: 1;
+  /* height: 100%; */
+  /* min-height: 59rem; */
   display: flex;
 }
 .controls {
   background-color: var(--PRIMARY-WHITE);
-  flex-grow: 0.41;
+  /* flex-grow: 1; */
+  flex-basis: 23.7rem;
   /* transform: translateX(-20px); */
   /* border-top-left-radius: 50%;
   border-bottom-left-radius: 50%; */
@@ -147,6 +152,7 @@ main {
   align-items: flex-end;
   padding-block-start: 4rem;
   gap: 2.3rem;
+  flex-shrink: 0;
 }
 .controls::before {
   content: "";
@@ -207,26 +213,30 @@ main {
   font-size: 1.6rem;
   font-weight: 600;
   position: absolute;
-  transform: rotate(90deg) translate(-4px, -105px);
+  transform: rotate(90deg) translate(-4px, -96px);
+  max-width: 100px;
+  text-align: center;
+  border: none;
 }
-.controls__eraser {
+.controls__rainbow {
   margin-block-start: 4.5rem;
-  margin-inline-end: 3rem;
+  /* margin-inline-end: 3rem; */
+  margin-inline-end: 2.1rem;
 }
 
 .eraser__button,
 .reset__button,
 .rainbow__button,
 .brush__button {
-  font-size: 1.6rem;
-  padding: 0.75rem 1.5rem;
+  font-size: 1.5rem;
+  padding: 0.65rem 1.3rem;
   cursor: pointer;
   border-radius: 11px;
   border: none;
   background-color: oklch(0.769 0.188 70.08);
   color: white;
   font-weight: 500;
-  transition: all 0.2s ease-in;
+  transition: all 0.2s cubic-bezier(1, -1.84, 0, 3.6);
   border: 3px solid transparent;
 }
 .eraser__button:hover,
@@ -240,20 +250,23 @@ main {
 .reset__button.active,
 .rainbow__button.active,
 .brush__button.active {
-  border-color: oklch(0.709 0.188 70.08);
-  scale: 0.95;
+  border-color: oklch(0.6 0.2 80.08);
+  box-shadow: 0 0 2px 2px #0000006e;
+  scale: 0.9;
 }
 .controls__reset {
   margin-inline-end: 3.2rem;
 }
-.controls__rainbow {
+.controls__eraser {
   margin-inline-end: 2.1rem;
+  margin-inline-end: 3rem;
 }
 .controls__brush {
   margin-inline-end: 3.2rem;
 }
 .sketch-grid {
-  flex-grow: 2;
+  /* max-width: 59rem; */
+  flex-grow: 1;
   /* background-color: burlywood; */
   display: flex;
   flex-wrap: wrap;
@@ -272,12 +285,14 @@ main {
   flex-wrap: wrap;
   /* height: 10px; */
 }
-.sketch-grid__container div {
+.sketch-grid__container .cell {
   flex-grow: 1;
   /* background-color: red; */
   background-color: #ddd;
-  border: 2px solid #fff;
+  /* border: 2px solid #fff; */
   /* display: flex; */
+  cursor: default;
+  /* transition: all 0.2s; */
 }
 /*
 ------------------------------------------

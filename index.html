@@ -32,13 +32,32 @@
               <p class="color-picker__label">Pick a Color!</p>
 
               <div class="color-picker__input-container">
-                <input class="color-picker__input" type="color" name="" id="" />
+                <input
+                  data-color-picker
+                  class="color-picker__input"
+                  type="color"
+                  name=""
+                  id=""
+                />
               </div>
             </div>
             <div class="controls__grid-size">
-              <p class="grid-size__label">16 X 16 Grid</p>
+              <input
+                data-grid-size-label
+                class="grid-size__label"
+                type="text"
+                readonly
+                value="16 X 16"
+                name=""
+                id=""
+              />
+              <!-- <p class="grid-size__label">
+                <span data-grid-col>16</span> X
+                <span data-grid-row>16</span> Grid
+              </p> -->
               <div class="grid-size__input-container">
                 <input
+                  data-grid-size-input
                   type="range"
                   class="grid-size__input"
                   min="16"
@@ -47,39 +66,31 @@
                 />
               </div>
             </div>
-            <div class="controls__eraser">
-              <button type="button" class="eraser__button">Eraser</button>
-            </div>
             <div class="controls__rainbow">
-              <button class="rainbow__button" type="button">Rainbow</button>
+              <button data-rainbow class="rainbow__button" type="button">
+                Rainbow
+              </button>
             </div>
             <div class="controls__brush">
-              <button class="brush__button" type="button">Brush</button>
+              <button data-brush class="brush__button" type="button">
+                Brush
+              </button>
             </div>
+            <div class="controls__eraser">
+              <button data-eraser type="button" class="eraser__button">
+                Eraser
+              </button>
+            </div>
+
             <div class="controls__reset">
-              <button class="reset__button" type="button">Reset</button>
+              <button data-reset class="reset__button" type="button">
+                Reset
+              </button>
             </div>
           </div>
 
           <div class="sketch-grid">
-            <div class="sketch-grid__container">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+            <div data-grid-container class="sketch-grid__container"></div>
           </div>
         </div>
       </section>
