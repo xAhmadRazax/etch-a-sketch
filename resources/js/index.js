@@ -131,6 +131,9 @@ function init() {
             ? "0.1"
             : `${0.1 + +e.target.style.opacity}`;
       }
+      if (eraserModeOn && +e.target.style.opacity < 1) {
+        e.target.style.opacity = "1";
+      }
       e.target.style.backgroundColor = cellBackgroundColor;
     }
     return;
@@ -175,6 +178,7 @@ function init() {
 
   eraserBtnEl.addEventListener("click", (e) => {
     e.target.classList.toggle("active");
+
     brushModeOm = false;
     brushBtnEl.classList.remove("active");
     eraserModeOn = !eraserModeOn;
