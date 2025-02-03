@@ -1,3 +1,4 @@
+View project at: https://xahmadrazax.github.io/etch-a-sketch/
 A simple and interactive Etch-a-sketch web application that allow you to create, erase, allow to use multiple colors and different sizes of the box's/pixel
 
 **Features**
