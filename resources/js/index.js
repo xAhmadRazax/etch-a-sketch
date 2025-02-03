@@ -24,6 +24,7 @@ function createGridCells(cellDimension, totalCells) {
 
     newEl.style.width = `${cellDimension.width}px`;
     newEl.style.height = `${cellDimension.height}px`;
+    // newEl.style.opacity = "0.1";
     return newEl;
   });
   //   for (let i = 0; i < totalCells; i++) {
@@ -88,12 +89,14 @@ function init() {
   const gridSizeLabelEl = document.querySelector("[data-grid-size-label]");
   const colorPickerInputEl = document.querySelector("[data-color-picker]");
   const rainbowBtnEl = document.querySelector("[data-rainbow]");
+  const brushBtnEl = document.querySelector("[data-brush]");
   const eraserBtnEl = document.querySelector("[data-eraser]");
   const resetBtnEl = document.querySelector("[data-reset]");
 
   let cellBackgroundColor = "#363636";
   let previousColor = "#363636";
   let drawState = false;
+  let brushModeOm = false;
   let rainbowModeOn = false;
   let eraserModeOn = false;
 
@@ -102,6 +105,8 @@ function init() {
   colorPickerInputEl.addEventListener("change", (e) => {
     cellBackgroundColor = e.target.value;
     previousColor = e.target.value;
+    brushModeOm = false;
+    brushBtnEl.classList.remove("active");
     eraserModeOn = false;
     eraserBtnEl.classList.remove("active");
     rainbowModeOn = false;
@@ -112,14 +117,20 @@ function init() {
   document.addEventListener("mouseup", (e) => (drawState = false));
 
   gridContainerEl.addEventListener("mouseover", (e) => {
-    console.log(e.button);
     if (!e.target.closest(".cell")) {
       return;
     }
+
     if (rainbowModeOn) {
       cellBackgroundColor = generateRandomRGBColor();
     }
     if (drawState) {
+      if (brushModeOm) {
+        e.target.style.opacity =
+          e.target.style.opacity === ""
+            ? "0.1"
+            : `${0.1 + +e.target.style.opacity}`;
+      }
       e.target.style.backgroundColor = cellBackgroundColor;
     }
     return;
@@ -132,13 +143,40 @@ function init() {
 
   rainbowBtnEl.addEventListener("click", (e) => {
     e.target.classList.toggle("active");
+    if (brushModeOm) {
+      brushModeOm = false;
+      brushBtnEl.classList.remove("active");
+    }
     eraserModeOn = false;
     eraserBtnEl.classList.remove("active");
     rainbowModeOn = !rainbowModeOn;
   });
 
+  brushBtnEl.addEventListener("click", (e) => {
+    if (eraserModeOn) {
+      cellBackgroundColor = previousColor;
+      eraserModeOn = false;
+      eraserBtnEl.classList.remove("active");
+    }
+    if (rainbowModeOn) {
+      rainbowModeOn = false;
+      rainbowBtnEl.classList.remove("active");
+      cellBackgroundColor = previousColor;
+    }
+    if (!brushModeOm) {
+      brushBtnEl.classList.add("active");
+      brushModeOm = !brushModeOm;
+    } else {
+      brushModeOm = !brushModeOm;
+
+      brushBtnEl.classList.remove("active");
+    }
+  });
+
   eraserBtnEl.addEventListener("click", (e) => {
     e.target.classList.toggle("active");
+    brushModeOm = false;
+    brushBtnEl.classList.remove("active");
     eraserModeOn = !eraserModeOn;
     rainbowModeOn = false;
     rainbowBtnEl.classList.remove("active");
@@ -150,6 +188,8 @@ function init() {
   });
 
   resetBtnEl.addEventListener("click", (e) => {
+    brushModeOm = false;
+    brushBtnEl.classList.remove("active");
     eraserModeOn = false;
     eraserBtnEl.classList.remove("active");
     rainbowModeOn = false;
