@@ -84,6 +84,33 @@ function generateRandomRGBColor() {
   )})`;
 }
 function init() {
+  const switchOffEraserMode = (changeBgColor = false) => {
+    if (eraserModeOn) {
+      if (changeBgColor) {
+        // since eraser mode is onl changing the bg colors of cell
+        // so we need a ref to a color which user was using for drawing before he
+        // active eraser mode
+        inkColor = previousInkColor;
+      }
+      eraserModeOn = false;
+      eraserBtnEl.classList.remove("active");
+    }
+  };
+  const switchOffBrushMode = () => {
+    if (brushModeOm) {
+      brushModeOm = false;
+      brushBtnEl.classList.remove("active");
+    }
+  };
+  const switchOffRainbowMode = (changeBgColor = false) => {
+    if (rainbowModeOn) {
+      rainbowModeOn = false;
+      rainbowBtnEl.classList.remove("active");
+      if (changeBgColor) {
+        inkColor = previousInkColor;
+      }
+    }
+  };
   const gridSizeInputEl = document.querySelector("[data-grid-size-input]");
   const gridContainerEl = document.querySelector("[data-grid-container]");
   const gridSizeLabelEl = document.querySelector("[data-grid-size-label]");
@@ -93,37 +120,40 @@ function init() {
   const eraserBtnEl = document.querySelector("[data-eraser]");
   const resetBtnEl = document.querySelector("[data-reset]");
 
-  let cellBackgroundColor = "#363636";
-  let previousColor = "#363636";
+  let inkColor = "#363636";
+  let previousInkColor = "#363636";
   let drawState = false;
   let brushModeOm = false;
   let rainbowModeOn = false;
   let eraserModeOn = false;
 
+  //on initial page load add 16 x 16 grid cells
   GridSizeChangeHandler(gridSizeInputEl, gridContainerEl);
 
   colorPickerInputEl.addEventListener("change", (e) => {
-    cellBackgroundColor = e.target.value;
-    previousColor = e.target.value;
-    brushModeOm = false;
-    brushBtnEl.classList.remove("active");
-    eraserModeOn = false;
-    eraserBtnEl.classList.remove("active");
-    rainbowModeOn = false;
-    rainbowBtnEl.classList.remove("active");
+    inkColor = e.target.value;
+    previousInkColor = e.target.value;
+
+    switchOffBrushMode();
+    switchOffEraserMode();
+    switchOffRainbowMode();
   });
 
   gridContainerEl.addEventListener("mousedown", (e) => (drawState = true));
   document.addEventListener("mouseup", (e) => (drawState = false));
 
   gridContainerEl.addEventListener("mouseover", (e) => {
+    // if elements are not cell do nothing
     if (!e.target.closest(".cell")) {
       return;
     }
 
+    // if element are cells and have rainbow mode on
+    // generate random color
     if (rainbowModeOn) {
-      cellBackgroundColor = generateRandomRGBColor();
+      inkColor = generateRandomRGBColor();
     }
+    // if we are drawing and brush mode is on than increase the opacity
     if (drawState) {
       if (brushModeOm) {
         e.target.style.opacity =
@@ -131,10 +161,15 @@ function init() {
             ? "0.1"
             : `${0.1 + +e.target.style.opacity}`;
       }
-      if (eraserModeOn && +e.target.style.opacity < 1) {
+      // resetting element opacity when we are on pen/default mode or erasing mode
+      if (
+        (eraserModeOn && +e.target.style.opacity < 1) ||
+        (!brushModeOm && +e.target.style.opacity < 1)
+      ) {
         e.target.style.opacity = "1";
       }
-      e.target.style.backgroundColor = cellBackgroundColor;
+      // changing cell colors to make drawing effect
+      e.target.style.backgroundColor = inkColor;
     }
     return;
   });
@@ -145,62 +180,44 @@ function init() {
   });
 
   rainbowBtnEl.addEventListener("click", (e) => {
+    switchOffBrushMode();
+    switchOffEraserMode();
+
     e.target.classList.toggle("active");
-    if (brushModeOm) {
-      brushModeOm = false;
-      brushBtnEl.classList.remove("active");
-    }
-    eraserModeOn = false;
-    eraserBtnEl.classList.remove("active");
     rainbowModeOn = !rainbowModeOn;
   });
 
   brushBtnEl.addEventListener("click", (e) => {
-    if (eraserModeOn) {
-      cellBackgroundColor = previousColor;
-      eraserModeOn = false;
-      eraserBtnEl.classList.remove("active");
-    }
-    if (rainbowModeOn) {
-      rainbowModeOn = false;
-      rainbowBtnEl.classList.remove("active");
-      cellBackgroundColor = previousColor;
-    }
-    if (!brushModeOm) {
-      brushBtnEl.classList.add("active");
-      brushModeOm = !brushModeOm;
-    } else {
-      brushModeOm = !brushModeOm;
+    switchOffEraserMode(true);
+    switchOffRainbowMode(true);
 
-      brushBtnEl.classList.remove("active");
-    }
+    brushBtnEl.classList.toggle("active");
+    brushModeOm = !brushModeOm;
   });
 
   eraserBtnEl.addEventListener("click", (e) => {
+    switchOffBrushMode();
+    switchOffRainbowMode();
     e.target.classList.toggle("active");
-
-    brushModeOm = false;
-    brushBtnEl.classList.remove("active");
     eraserModeOn = !eraserModeOn;
-    rainbowModeOn = false;
-    rainbowBtnEl.classList.remove("active");
+
     if (eraserModeOn) {
-      cellBackgroundColor = "#ddd";
+      inkColor = "#ddd";
     } else {
-      cellBackgroundColor = previousColor;
+      inkColor = previousInkColor;
     }
   });
 
   resetBtnEl.addEventListener("click", (e) => {
-    brushModeOm = false;
-    brushBtnEl.classList.remove("active");
-    eraserModeOn = false;
-    eraserBtnEl.classList.remove("active");
-    rainbowModeOn = false;
-    rainbowBtnEl.classList.remove("active");
+    switchOffEraserMode();
+    switchOffEraserMode();
+    switchOffRainbowMode();
+
     e.target.classList.add("active");
+    // resetting grid by removing all child and then add new child
     GridSizeChangeHandler(gridSizeInputEl, gridContainerEl);
-    cellBackgroundColor = previousColor;
+    // setting pen color to
+    inkColor = previousInkColor;
     setTimeout(() => {
       e.target.classList.remove("active");
     }, 210);
