@@ -84,7 +84,11 @@ function generateRandomRGBColor() {
   )})`;
 }
 function init() {
-  const switchOffEraserMode = (changeBgColor = false) => {
+  const switchOffEraserMode = (
+    eraserBtnEl,
+    eraserModeOn,
+    changeBgColor = false
+  ) => {
     if (eraserModeOn) {
       if (changeBgColor) {
         // since eraser mode is onl changing the bg colors of cell
@@ -188,7 +192,7 @@ function init() {
   });
 
   brushBtnEl.addEventListener("click", (e) => {
-    switchOffEraserMode(true);
+    switchOffEraserMode(eraserBtnEl, eraserModeOn, true);
     switchOffRainbowMode(true);
 
     brushBtnEl.classList.toggle("active");
